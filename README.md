@@ -243,3 +243,34 @@ if 문 대신에 switch 문을 사용하셔도 상관 없습니다. 그리고 �
 
 여기서 사용된건 [화살표 함수](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Functions/%EC%95%A0%EB%A1%9C%EC%9A%B0_%ED%8E%91%EC%85%98"화살표함수") 라고 부릅니다.  
 화살표 함수는 this, arguments, super 개념이 없는 익명 함수입니다. 앞으로 ES6 에서 자주 사용하게 될 것입니다.
+
+## style 과 className
+
+우선, 스타일은 다음과 같이 작성 할 수 있습니다.
+
+```javascript
+import React, { Component } from 'react';
+
+class App extends Component {
+  render() {
+    const style = {
+      backgroundColor: 'black',
+      padding: '16px',
+      color: 'white',
+      fontSize: '12px'
+    };
+
+    return (
+      <div style={style}>
+        hi there
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+html 에서는 그냥 텍스트형태로 ="backgroundColor: black; padding: 16px; ..." 이런식으로 작성했었지요?  
+리액트에서는 객체 형태로 작성해주셔야 합니다.  
+그리고 클래스를 설정하게 될 때에는 html 에서는 <div class="hello"> 이렇게 작성했었는데요,  
+리액트 컴포넌트에서는 class 대신에 className 을 사용합니다.
