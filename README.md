@@ -6,7 +6,7 @@ create-react-app velopert-tutorial
 
 npm start
 
-```react
+```JSX
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
