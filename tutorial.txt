@@ -1,0 +1,7 @@
+# https://velopert.com/3621
+
+npm install -g create-react-app
+
+create-react-app velopert-tutorial
+
+npm start
