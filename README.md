@@ -274,3 +274,47 @@ html 에서는 그냥 텍스트형태로 ="backgroundColor: black; padding: 16px
 리액트에서는 객체 형태로 작성해주셔야 합니다.  
 그리고 클래스를 설정하게 될 때에는 html 에서는 <div class="hello"> 이렇게 작성했었는데요,  
 리액트 컴포넌트에서는 class 대신에 className 을 사용합니다.
+
+# Post 3
+
+리액트 컴포넌트에서 다루는 데이터는 두개로 나뉩니다.  
+바로 props 와 state 인데요, 미리 요약하여 설명드리자면 props 는 부모 컴포넌트가 자식 컴포넌트에게 주는 값입니다.  
+자식 컴포넌트에서는 props 를 받아오기만하고, 받아온 props 를 직접 수정 할 수 는 없습니다.  
+반면에 state 는 컴포넌트 내부에서 선언하며 내부에서 값을 변경 할 수 있습니다.
+
+```javascript
+import React, { Component } from 'react';
+
+class MyName extends Component {
+  render() {
+    return (
+      <div>
+        안녕하세요! 제 이름은 <b>{this.props.name}</b> 입니다.
+      </div>
+    );
+  }
+}
+
+export default MyName;
+```
+자신이 받아온 props 값은 this. 키워드를 통하여 조회 할 수 있습니다.  
+지금 name 이라는 props 를 보여주도록 설정해주었습니다. 
+
+- App.js 수정
+```javascript
+import React, { Component } from 'react';
+import MyName from './MyName';
+
+class App extends Component {
+  render() {
+    return (
+      <MyName name="리액트" />
+    );
+  }
+}
+
+export default App;
+```
+import 를 통하여 컴포넌트를 불러오고, 렌더링해보겠습니다.  
+이렇게 컴포넌트를 만들고나면, 일반 태그를 작성하듯이, 작성해주면 됩니다.  
+그리고 props 값은 name="리액트" 이런식으로 태그의 속성을 설정해주는 것 처럼 해주세요.

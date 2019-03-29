@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import './App.css'
+import MyName from './MyName';
+//import './App.css'
 
 class App extends Component {
   render() {
@@ -8,7 +9,7 @@ class App extends Component {
       // 태그 사이에
       >
         {/* 주석은 이렇게 */}
-        Park Jong Soo
+        <MyName name="리액트" />
       </div>
     );
   }
