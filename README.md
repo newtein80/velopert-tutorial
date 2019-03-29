@@ -77,7 +77,8 @@ serviceWorker.unregister();
 ```javascript
 import App from './App';
 ```
-우리가 만든 컴포넌트를 불러올 때는 이렇게 import 를 사용해서 불러와줍니다
+우리가 만든 컴포넌트를 불러올 때는 이렇게 import 를 사용해서 불러와줍니다.
+
 ```javascript
 ReactDOM.render(<App />, document.getElementById('root'));
 ```
@@ -89,3 +90,156 @@ index.html
 ```html
 <div id="root"></div>
 ```
+---
+## JSX
+
+# 꼭 닫혀야 하는 태그
+ex) br 태그, input 태그 또한 무조건 닫혀야 한다.
+# 감싸져 있는 엘리먼트
+ex)
+```javascript
+class App extends Component {
+  render() {
+    return (
+      <Fragment>
+        <div>
+          Hello
+        </div>
+        <div>
+          Bye
+        </div>
+      </Fragment>
+    );
+  }
+}
+```
+# JSX 안에 자바스크립트 값 사용하기
+```javascript
+class App extends Component {
+  render() {
+    const name = 'react';
+    return (
+      <div>
+        hello {name}!
+      </div>
+    );
+  }
+}
+```
+---
+const 는 ES6 에 도입된 키워드로서, 한번 선언하고 바뀌지 않는 값을 설정 할 때 사용됩니다.  
+그리고, 바뀌게 될 수 있는 값은 let 을 사용하여 선언하죠.  
+차이점  
+var 은 scope 가 함수단위인데요:  
+```javascript
+function foo() {
+  var a = 'hello';
+  if (true) {
+    var a = 'bye';
+    console.log(a); // bye
+  }
+  console.log(a); // bye
+}
+```
+반면 const 와 let 은 scope 가 블록 단위 입니다:  
+```javascript
+function foo() {
+  let a = 'hello';
+  if (true) {
+    let a = 'bye';
+    console.log(a); // bye
+  }
+  console.log(a); // hello
+}
+```
+- ES6 에서는, var 을 쓸 일이 없구요, 값을 선언 후 바꿔야 할 땐 let, 그리고 바꾸지 않을 땐 const 를 사용하시면 됩니다.
+---
+# 조건부 렌더링
+
+JSX 내부에서 조건부 렌더링을 할 때는 보통 삼항 연산자를 사용하거나, AND 연산자를 사용합니다.
+
+반면에 if 문을 사용 할 수는 없어요 (사용하려면 [IIFE](https://developer.mozilla.org/ko/docs/Glossary/IIFE"IIFE")(즉시 실행 함수 표현) 을 사용해아합니다.)
+
+- 삼항연산자
+```javascript
+import React, { Component } from 'react';
+
+class App extends Component {
+  render() {
+    return (
+      <div>
+        {
+          1 + 1 === 2 
+            ? (<div>맞아요!</div>)
+            : (<div>틀려요!</div>)
+        }
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+이렇게 하면, 맞아요가 보여질 것입니다. 반면 1 + 1 === 2 부분을 1 + 1 === 3 으로 바꿔보세요. 그럼 틀려요가 나타납니다.
+
+-  AND 연산자
+```javascript
+import React, { Component } from 'react';
+
+class App extends Component {
+  render() {
+    return (
+      <div>
+        {
+          1 + 1 === 2 && (<div>맞아요!</div>)
+        }
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+삼항연산자는 true 일 때와 false 일 때 다른것들을 보여주고 싶을 떄 사용하는 반면,  
+AND 연산자의 경우 단순히 우리의 조건이 true 일 때만 보여주고 false 경우 아무것도 보여주고 싶지 않을 때 사용합니다.
+
+
+대부분의 상황엔 위의 방식으로 해결 할 수 있지만, 가끔씩은 좀 복잡한 조건을 작성해야 할 때도 있습니다.  
+그러한 조건들은 웬만하면 JSX 밖에서 로직을 작성하는것이 좋습니다.  
+하지만, 꼭 JSX 내부에서 작성해야 한다면, 이렇게 IIFE 를 사용합니다.
+
+
+```javascript
+import React, { Component } from 'react';
+
+class App extends Component {
+  render() {
+    const value = 1;
+    return (
+      <div>
+        {
+          (function() {
+            if (value === 1) return (<div>하나</div>);
+            if (value === 2) return (<div>둘</div>);
+            if (value === 3) return (<div>셋</div>);
+          })()
+        }
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+if 문 대신에 switch 문을 사용하셔도 상관 없습니다. 그리고 위 코드는 다음과 같이 쓸 수도 있습니다.
+
+```javascript
+(() => {
+  if (value === 1) return (<div>하나</div>);
+  if (value === 2) return (<div>둘</div>);
+  if (value === 3) return (<div>셋</div>);
+})()
+```
+
+여기서 사용된건 [화살표 함수](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Functions/%EC%95%A0%EB%A1%9C%EC%9A%B0_%ED%8E%91%EC%85%98"화살표함수") 라고 부릅니다.  
+화살표 함수는 this, arguments, super 개념이 없는 익명 함수입니다. 앞으로 ES6 에서 자주 사용하게 될 것입니다.
