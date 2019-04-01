@@ -8,6 +8,7 @@ import CounterOrigin from './CounterOrigin';
 import SetStateTestOne from './SetStateTestOne';
 import SetStateTestTwo from './SetStateTestTwo';
 import SetStateTestThree from './SetStateTestThree';
+import CounterExceptionTest from './CounterExceptionTest';
 //import './App.css'
 
 class App extends Component {
@@ -18,6 +19,7 @@ class App extends Component {
       >
         {/* 주석은 이렇게 */}
         {/* <MyName name="리액트" /> */}
+        <CounterExceptionTest/>
         <SetStateTestThree/>
         <MyName />
         <MyName name="강병현" />
