@@ -6,6 +6,9 @@ create-react-app velopert-tutorial
 
 npm start
 
+npm cache clean
+npm install --save
+
 ---
 - App.js
 
